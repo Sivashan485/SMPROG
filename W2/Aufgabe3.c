@@ -119,13 +119,16 @@ int tageProMonat( int jahr,enum  month_t monat){
 /*
 */
 int gibIntWert(const char *typ, int min, int max){
-    char input[100];
+    //eingabe mit der länge 10
+    char input[10];
     int wert;
+
+    //Solange bis die Usereingabe gültig ist WHILE(1) 
     while (1) {
         printf("Geben Sie %s (%d-%d) ein: ", typ, min, max);
+        //Wird für die Eingabe verwendet  Bibliothek eintrag stdin wird für die Tastatur eingabe (lesen) verwendet.
         fgets(input, sizeof(input), stdin);
-        // fgets liest auch die Zeilenumbrüche ein, deshalb entfernen wir diese
-        input[strcspn(input, "\n")] = 0;
+        //Atoi wandelt die Eingabe in Ganzzahlen um. 
         wert = atoi(input);
         if (wert >= min && wert <= max) {
             return wert;
