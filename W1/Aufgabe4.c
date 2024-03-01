@@ -15,7 +15,7 @@ int main(void){
     scanf("%c", &sentence);
 
     //The while loop runs until it encounters the character \n
-    while ((currentCharacter = getchar()) != EOF)
+    while ((currentCharacter = getchar()) != "\n")
     {
         //character is also \t and ' '
         ++characterCounter;
