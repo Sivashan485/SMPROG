@@ -14,6 +14,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <string.h>
+
 
 
 
@@ -59,7 +61,7 @@ int is_valid_date(date_t date);
 date_t readDate(void);
 int is_gregorian_date(date_t date);
 weekday_t calculate_weekday(date_t date);
- print_weekday(weekday_t day);
+void print_weekday(weekday_t day);
 
 
 
@@ -273,7 +275,7 @@ date_t readDate(void){
 
 
   weekday_t calculate_weekday(date_t date){
-    //assert(is_valid_date(date));
+    assert(is_valid_date(date)==1);
     weekday_t we = 1;
     
     int month = date.month,day = date.day, year = date.year;
@@ -282,15 +284,43 @@ date_t readDate(void){
     int y = a % 100;
     int c = a / 100;
 
-    // Berechnung des Wochentags
     int weekday  = ((day + (13 * m - 1) / 5 + y + y / 4 + c / 4 - 2 * c) % 7 + 7) % 7;
-    
     return weekday;
 }
 
- print_weekday(weekday_t day){
-  //  printf("TAG %d",day);
-    
+ void print_weekday(weekday_t days){
+    char day[30];
+
+    switch (days)
+    {
+    case Sun:
+        strcpy(day, "Sun");
+        break;
+    case Mon:
+        strcpy(day, "Mon");
+        break;
+    case TUE:
+        strcpy(day, "Tue");
+        break;
+    case WED:
+        strcpy(day, "Wed");
+        break;
+    case THU:
+        strcpy(day, "Thu");
+        break;
+    case FRI:
+        strcpy(day, "FRI");
+        break;
+    case SAT:
+        strcpy(day, "Sat");
+        break;
+    default:
+        strcpy(day, "???");
+        //assert("!day is out-of-range");
+        break;
+    }
+    printf("WEEKDAY:-> %s <-",day);
+
 }
 
 
