@@ -288,7 +288,7 @@ date_t readDate(void){
     return weekday;
 }
 
- void print_weekday(weekday_t days){
+  void print_weekday(weekday_t days){
     char day[30];
 
     switch (days)
@@ -316,11 +316,10 @@ date_t readDate(void){
         break;
     default:
         strcpy(day, "???");
-        //assert("!day is out-of-range");
+        assert("!day is out-of-range");
         break;
     }
-    printf("WEEKDAY:-> %s <-",day);
-
+    printf(" is a %s\n",day );
 }
 
 
@@ -366,6 +365,7 @@ int main(int argc, const char *argv[])
 {
     date_t date = readDate();
     weekday_t weekday = calculate_weekday(date);
+    printf("%04d-%02d-%02d", date.year, date.month, date.day);
     print_weekday(weekday);
 
     //printDate(date);
