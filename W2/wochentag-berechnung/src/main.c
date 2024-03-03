@@ -17,7 +17,7 @@
 #include <string.h>
 
 
-
+#define EXIT_FAILURE 1
 
 
 
@@ -121,8 +121,8 @@ int isYearValid(date_t date){
     if(date.year>=1582 && date.year <10000){
         return 1;
     }
-    printf("\nERROR: Year is unvalid!!! VALID-> 1582-10000 \n");
-    return 0; 
+    fprintf(stderr,"\nERROR: Year is unvalid!!! VALID-> 1582-10000 \n");
+    return EXIT_FAILURE; 
 }
 
 /*
@@ -132,8 +132,8 @@ int isMonthValid(date_t date){
     if(date.month>0 && date.month<13){
         return 1;
     }
-    printf("\nERROR: Month is unvalid!!! VALID-> 1-12 \n");
-    return 0; 
+    fprintf(stderr,"\nERROR: Month is unvalid!!! VALID-> 1-12 \n");
+    return EXIT_FAILURE; 
 }
 
 
@@ -157,8 +157,9 @@ int isDayValid( date_t date_t){
     if(tagMonat>=date_t.day){
         return 1;
     }
-    printf("\nERROR: Day is unvalid for month %d!!! VALID-> 1-%d\n",date_t.month,tagMonat);
-    return 0;
+    
+    fprintf(stderr,"\nERROR: Day is unvalid for month %d!!! VALID-> 1-%d\n",date_t.month,tagMonat);
+    return EXIT_FAILURE;
     
 }
 
@@ -261,21 +262,25 @@ date_t readDate(void){
     int year, month, day;
     int dateIsVaild = 0;
     date_t date;
-    do{
+    //do{
         printf("Enter date in following formate YEAR-Month-Day :");
         scanf("%d-%d-%d",&year, &month,&day);
         date.year = year;
         date.month = month;
         date.day = day;
         dateIsVaild = is_valid_date(date);
-    }while(0==dateIsVaild);
+
+    if(dateIsVaild==0){
+        fprintf(stderr, "Unvalid date format");
+    }
+    //}while(0==dateIsVaild);
     return date;
 
 }
 
 
   weekday_t calculate_weekday(date_t date){
-    assert(is_valid_date(date)==1);
+    assert(is_valid_date(date));
     weekday_t we = 1;
     
     int month = date.month,day = date.day, year = date.year;
@@ -319,7 +324,7 @@ date_t readDate(void){
         assert("!day is out-of-range");
         break;
     }
-    printf(" is a %s\n",day );
+    fprintf(stdout," is a %s\n",day );
 }
 
 
