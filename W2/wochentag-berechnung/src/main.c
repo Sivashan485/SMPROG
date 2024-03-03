@@ -43,6 +43,8 @@ typedef struct date_t
 
 } date_t;
 
+typedef enum {Sun =0, Mon =1 , TUE =2, WED, THU, FRI, SAT } weekday_t;
+
 
 // END-STUDENTS-TO-ADD-CODE
 
@@ -56,13 +58,14 @@ int get_month_length( date_t date);
 int is_valid_date(date_t date);
 date_t readDate(void);
 int is_gregorian_date(date_t date);
+weekday_t calculate_weekday(date_t date);
+ print_weekday(weekday_t day);
 
 
 
 // *** TASK2: typedef enum weekday_t (Sun=0, Mon, ...Sat) ***
 // BEGIN-STUDENTS-TO-ADD-CODE
 
-typedef enum {Sun =0, Mon , TUE, WED, THU, FRI, SAT } weekday_t;
 
 // END-STUDENTS-TO-ADD-CODE
 
@@ -113,10 +116,10 @@ int istHunderterJahr(int jahr){
     Year needs to be greater than 1599 and smaller than 10000; 
 */
 int isYearValid(date_t date){
-    if(date.year>=1599 && date.year <10000){
+    if(date.year>=1582 && date.year <10000){
         return 1;
     }
-    printf("\nERROR: Year is unvalid!!! VALID-> 1599-10000 \n");
+    printf("\nERROR: Year is unvalid!!! VALID-> 1582-10000 \n");
     return 0; 
 }
 
@@ -218,9 +221,22 @@ int get_month_length( date_t date){
  * This method checks if its valid min gregorien_date and max year of 9999 
 */
 int is_gregorian_date(date_t date){
-    if(date.day>=15 && date.month>= OKT&& date.year>=1582 
-        && isYearValid(date)==1)
+    if(isYearValid(date)==1)
     {
+        if(date.year==1582){
+            if(  date.month>= OKT){
+                if(date.month ==OKT ){
+                    if(date.day>=15){
+                        return 1;
+                    }else{
+                        return 0;
+                    }
+                }
+                return 1;
+                
+            }
+            return 0;
+        }
         return 1;
     }
     printf("ERROR: Gregorian min date is 15.OKT.1582");
@@ -251,8 +267,30 @@ date_t readDate(void){
         date.day = day;
         dateIsVaild = is_valid_date(date);
     }while(0==dateIsVaild);
-        
+    return date;
 
+}
+
+
+  weekday_t calculate_weekday(date_t date){
+    //assert(is_valid_date(date));
+    weekday_t we = 1;
+    
+    int month = date.month,day = date.day, year = date.year;
+    int m = 1 + (month + 9) % 12;
+    int a = (month < 3) ? year - 1 : year;
+    int y = a % 100;
+    int c = a / 100;
+
+    // Berechnung des Wochentags
+    int weekday  = ((day + (13 * m - 1) / 5 + y + y / 4 + c / 4 - 2 * c) % 7 + 7) % 7;
+    
+    return weekday;
+}
+
+ print_weekday(weekday_t day){
+  //  printf("TAG %d",day);
+    
 }
 
 
@@ -296,7 +334,11 @@ date_t readDate(void){
  */
 int main(int argc, const char *argv[])
 {
-    readDate();
+    date_t date = readDate();
+    weekday_t weekday = calculate_weekday(date);
+    print_weekday(weekday);
+
+    //printDate(date);
     // TASK1: parse the mandatory argument into a date_t variable and check if the date is valid
     // BEGIN-STUDENTS-TO-ADD-CODE
 
