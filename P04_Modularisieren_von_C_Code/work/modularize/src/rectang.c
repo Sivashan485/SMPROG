@@ -13,4 +13,25 @@
  */
 // begin students to add code for task 4.1
 
+#include "rectang.h"
+
+int Rectangular(int a , int b, int c){
+    int  aS = (a*a);
+    int  bS = (b*b);
+    int cS = (c*c);
+    int isRightAngled;
+    if ((a == 0) && (b == 0) && (c == 0))
+        isRightAngled = 0;
+    else if ((aS + bS) == cS)
+        isRightAngled = 1;
+    else if ((aS + cS) == bS)
+        isRightAngled = 1;
+    else if ((bS + cS) == aS)
+        isRightAngled = 1;
+    else
+        isRightAngled = 0;
+
+    return isRightAngled;
+}
+
 // end students to add code

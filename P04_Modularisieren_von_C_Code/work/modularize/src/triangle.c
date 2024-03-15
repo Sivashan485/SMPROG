@@ -16,9 +16,11 @@
 #include "read.h"
 #include "rectang.h"
 
+
 /// max side length
 #define MAX_NUMBER 1000
-
+#define READ_ERROR -2
+#define MAX_NUMBER 1000
 
 /**
  * @brief Main entry point.
@@ -27,7 +29,54 @@
 int main(void)
 {
 	// begin students to add code for task 4.1
-	
+
+        
+        while (1) {
+            printf("\nDreiecksbestimmung (CTRL-C: Abbruch)\n");
+
+            int word = 0;
+            int a = 0;
+            int b = 0;
+            int c = 0;
+
+            do {
+                printf("Seite a: ");
+                word = getInt(MAX_NUMBER);
+            }
+            while ((word < 0) && (word != READ_ERROR));
+            if (word >= 0)
+                a = word;
+            else
+                break;
+            
+            do {
+                print("Seite b: ");
+                word = getInt(MAX_NUMBER);
+            }
+            while ((word < 0) && (word != READ_ERROR));
+            if (word >= 0)
+                b = word;
+            else
+                break;
+            
+            do {
+                printf("Seite c: ");
+                word = getInt(MAX_NUMBER);
+            }
+            while ((word < 0) && (word != READ_ERROR));
+            if (word >= 0)
+                c = word;
+            else
+                break;
+            
+            if (Rectangular(a, b, c) == 1)
+                printf("-> Dreieck %c - %c - %c ist rechtwinklig",a,b,c);
+            else
+                printf("-> Dreieck %c - %c - %c ist nicht rechtwicklig\n",a ,b, c);
+        }
+        printf("\n\nbye bye\n");
 	// end students to add code
     return EXIT_SUCCESS;
 }
+
+

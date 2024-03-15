@@ -13,4 +13,12 @@
  */
 // begin students to add code for task 4.1
 
+        #ifndef RECTANG_H
+            #define RECTANG_H
+     
+            int Rectangular(int a, int b, int c);
+        #endif
+
+        
+
 // end students to add code
